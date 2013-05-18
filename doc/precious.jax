@@ -40,6 +40,22 @@ precious#set_base_filetype()			*precious#set_base_filetype()*
 ------------------------------------------------------------------------------
 変数						*precious-variables*
 
+			*precious-precious_enable_auto_switch_CursorMoved*
+g:precious_enable_auto_switch_CursorMoved
+	1 が設定されていれば |CursorMoved| 時に |:PreciousSwitch| を呼び出しま
+	す。
+Default: >
+	let g:precious_enable_auto_switch_CursorMoved = 1
+<
+
+			*precious-precious_enable_auto_switch_CursorMoved_i*
+g:precious_enable_auto_switch_CursorMoved
+	1 が設定されていれば |CursorMovedI| 時に |:PreciousSwitch| を呼び出しま
+	す。
+Default: >
+	let g:precious_enable_auto_switch_CursorMoved_i = 1
+<
+
 
 ==============================================================================
 matcher						*precious-matcher*
