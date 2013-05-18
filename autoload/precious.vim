@@ -69,6 +69,9 @@ unlet s:matcher
 let s:matcher = {}
 
 function! s:matcher.apply(base_filetype)
+	if !neocomplcache#is_enabled()
+		return ""
+	endif
 	let filetype = neocomplcache#context_filetype#get(a:base_filetype)
 	return filetype ==# "nothing" ? "" : filetype
 endfunction
