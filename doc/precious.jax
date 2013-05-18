@@ -40,9 +40,6 @@ precious#set_base_filetype()			*precious#set_base_filetype()*
 ------------------------------------------------------------------------------
 変数						*precious-variables*
 
-g:euphoric_player_backend			
-	バックエンドを設定します。
-
 
 ==============================================================================
 matcher						*precious-matcher*
