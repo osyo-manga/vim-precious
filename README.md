@@ -1,19 +1,19 @@
-#precious.vim
+# precious.vim
 -------------
 
 現在のカーソル位置のコンテキストによって filetype を切り換える為のプラグインです。
 
 
-##Require
----------
+## Require
+----------
 
 * [neocomplcache](https://github.com/Shougo/neocomplcache.vim)
 
 
-##Example
----------
+## Example
+----------
 
-```
+```vim
 " test.vim
 " set filetype=vim --------------------------------------------------
 echo "hello, world"
@@ -43,8 +43,8 @@ echo join(range(10), "-")
 "------------------------------------------------------------------------------
 ```
 
-##TODO
-------
+## TODO
+-------
 
 * より高度なコンテキストの判定（現状は neocomplcache 依存）
 * コンテキストの切り替わり時にユーザが自由に処理をフック
