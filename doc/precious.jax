@@ -1,0 +1,71 @@
+precious.txt	コンテキストによって |filetype| を切り換える
+
+==============================================================================
+概要						*precious-introduction*
+
+*precious* はコンテキストによって |filetype| を切り換える為のプラグインです。
+
+
+==============================================================================
+使い方						*precious-usage*
+
+
+==============================================================================
+インターフェース				*precious-interface*
+------------------------------------------------------------------------------
+コマンド					*precious-commands*
+
+:PreciousSwitch					*:PreciousSwitch*
+	コンテキストの |filetype| が変更されていれば　|precious-switcher| で定義
+	されている処理を呼び出す。
+
+------------------------------------------------------------------------------
+関数						*precious-functions*
+
+precious#context_filetype()			*precious#context_filetype()*
+	現在のコンテキストを意識した |filetype| を返します。
+	コンテキストの判定は |precious-matcher| によって処理されます。
+	コンテキストが見つからなければ |precious#base_filetype()| を返します。
+
+precious#base_filetype()			*precious#base_filetype()*
+	元となる |filetype| を返します。
+
+precious#set_base_filetype()			*precious#set_base_filetype()*
+	元となる |filetype| を設定します。
+
+
+==============================================================================
+設定						*precious-setting*
+
+------------------------------------------------------------------------------
+変数						*precious-variables*
+
+g:euphoric_player_backend			
+	バックエンドを設定します。
+
+
+==============================================================================
+matcher						*precious-matcher*
+
+現在のコンテキストがどの |filetype| なのかを判定する為に使用されます。
+
+
+"neocomplcache"					*precious-matcher-neocomplcache*
+	|neocomplcache| を使用したコンテキストの判定を行います。
+
+
+
+==============================================================================
+switcher					*precious-switcher*
+
+コンテキストが切り替わった場合の処理を定義します。
+
+
+"setfiletype"					*precious-switcher-setfiletype*
+	コンテキストの |filetype| が |filetype| に設定されます。
+	この処理で |filetype| が設定された場合、|precious#base_filetype| の値
+	は変更されません。
+
+
+==============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
