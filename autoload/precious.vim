@@ -16,18 +16,19 @@ function! precious#base_filetype()
 endfunction
 
 
-let s:matchers = []
+let s:matchers = {}
 function! precious#regist_matcher(name, matcher)
-	call insert(s:matchers, {
-\		"name"    : a:name,
-\		"matcher" : a:matcher
-\	})
+	let s:matchers[a:name] = a:matcher
+" 	call insert(s:matchers, {
+" \		"name"    : a:name,
+" \		"matcher" : a:matcher
+" \	})
 endfunction
 
 
 function! precious#context_filetype()
-	for matcher in s:matchers
-		let filetype = matcher.matcher.apply()
+	for matcher in values(s:matchers)
+		let filetype = matcher.apply()
 		if !empty(filetype)
 			return filetype
 		endif
@@ -37,12 +38,13 @@ endfunction
 
 
 
-let s:switchers = []
+let s:switchers = {}
 function! precious#regist_switcher(name, switcher)
-	call insert(s:switchers, {
-\		"name"    : a:name,
-\		"switcher" : a:switcher
-\	})
+	let s:switchers[a:name] = a:switcher
+" 	call insert(s:switchers, {
+" \		"name"    : a:name,
+" \		"switcher" : a:switcher
+" \	})
 endfunction
 
 
@@ -57,8 +59,8 @@ function! precious#switch()
 \		"base_filetype" : base_filetype,
 \		"context_filetype" : context_filetype,
 \	}
-	for switcher in s:switchers
-		call switcher.switcher.apply(context)
+	for switcher in values(s:switchers)
+		call switcher.apply(context)
 	endfor
 endfunction
 

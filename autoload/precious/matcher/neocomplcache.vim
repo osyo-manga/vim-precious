@@ -14,7 +14,7 @@ function! s:matcher.apply()
 	return filetype ==# "nothing" ? "" : filetype
 endfunction
 
-call precious#regist_matcher("neocomplcache", s:matcher)
+" call precious#regist_matcher("neocomplcache", s:matcher)
 unlet s:matcher
 
 

@@ -62,9 +62,9 @@ matcher						*precious-matcher*
 
 現在のコンテキストがどの |filetype| なのかを判定する為に使用されます。
 
-
-"neocomplcache"					*precious-matcher-neocomplcache*
-	|neocomplcache| を使用したコンテキストの判定を行います。
+					*precious-matcher-context_blocks*
+"context_blocks"
+	|searchpos| にてコンテキストを判定します。
 
 
 
