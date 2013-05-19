@@ -139,8 +139,6 @@ function! s:context_region(start_pattern, end_pattern)
 		let end_forward[1] = len == 0 ? 1 : len
 	endif
 
-	echo start
-	echo end_forward
 	return [start, end_forward]
 endfunction
 
