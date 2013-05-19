@@ -14,14 +14,19 @@ endfunction
 
 
 
-
 call precious#regist_switcher("setfiletype", s:switcher)
 unlet s:switcher
 
 
+function! s:reset_filetype()
+	if &filetype != precious#base_filetype()
+		let &filetype = precious#base_filetype()
+	endif
+endfunction
+
 augroup precious-switcher-setfiletype
 	autocmd!
-	autocmd BufWinLeave * let &filetype = precious#base_filetype()
+	autocmd BufWinLeave * call s:reset_filetype()
 augroup END
 
 let &cpo = s:save_cpo
