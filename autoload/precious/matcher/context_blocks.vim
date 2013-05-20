@@ -73,7 +73,10 @@ let s:constext_blocks = {
 \			'filetype': 'css',
 \			'start': '<script\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>'
 \		}
-\	]
+\	],
+\	'markdown': [
+\		{"start" : '^\s*```s*\(\h\w*\)', "end" : '^```$', "filetype" : '\1'},
+\	],
 \}
 
 
@@ -151,7 +154,6 @@ function! s:is_in(start_pattern, end_pattern, pos)
 endfunction
 
 
-
 function! s:get(filetype)
 	let base_filetype = a:filetype
 	let contexts = get(extend(copy(s:constext_blocks), g:precious_matcher_blocks), base_filetype, [])
@@ -161,8 +163,14 @@ function! s:get(filetype)
 
 	let pos = [line('.'), col('.')]
 	for context in contexts
+		let context_filetype = s:get_context_filetype(context.start, context.end, pos, context.filetype)
 		if s:is_in(context.start, context.end, pos)
-			return context.filetype
+			if context.filetype =~ '\\1'
+				let match_list = matchlist(getline(searchpos(context.start, 'nbW')[0]), context.start)
+				return substitute(context.filetype, '\\1', '\=match_list[1]', 'g')
+			else
+				return context.filetype
+			endif
 		endif
 	endfor
 
