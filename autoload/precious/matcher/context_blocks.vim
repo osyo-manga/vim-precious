@@ -133,11 +133,8 @@ function! s:context_region(start_pattern, end_pattern)
 		let start[1] = 1
 	endif
 
-	if end_forward[1] == 1
-		let end_forward[0] -= 1
-		let len = len(getline(end_forward[0]))
-		let end_forward[1] = len == 0 ? 1 : len
-	endif
+	echo start
+	echo end_forward
 
 	return [start, end_forward]
 endfunction
