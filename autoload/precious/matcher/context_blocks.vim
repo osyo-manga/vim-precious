@@ -163,7 +163,6 @@ function! s:get(filetype)
 
 	let pos = [line('.'), col('.')]
 	for context in contexts
-		let context_filetype = s:get_context_filetype(context.start, context.end, pos, context.filetype)
 		if s:is_in(context.start, context.end, pos)
 			if context.filetype =~ '\\1'
 				let match_list = matchlist(getline(searchpos(context.start, 'nbW')[0]), context.start)
