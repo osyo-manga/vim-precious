@@ -1,11 +1,14 @@
-# precious.vim
--------------
+#precious.vim
 
 現在のカーソル位置のコンテキストによって filetype を切り換える為のプラグインです。
 
 
-## Example
-----------
+##Screencapture
+![capture](https://github.com/osyo-manga/vim-precious/images/capture.gif)
+
+
+
+##Example
 
 ```vim
 " test.vim
@@ -46,8 +49,7 @@ echo join(range(10), "-")
 "------------------------------------------------------------------------------
 ```
 
-## TODO
--------
+##TODO
 
 * matcher、switcher を使用した機能の拡張
 * matcher、switcher の優先順位付け
