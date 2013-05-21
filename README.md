@@ -33,6 +33,15 @@ EOF
 "---------------------------------------------------------
 
 
+" autocmd
+" コンテキストに入った時の処理をフック
+augroup test
+	autocmd!
+	autocmd User PreciousFileType      :echo precious#context_filetype()
+	autocmd User PreciousFiletype_ruby :PreciousSetContextLocal tabstop=8
+augroup END
+
+
 echo join(range(10), "-")
 "------------------------------------------------------------------------------
 ```
@@ -40,11 +49,11 @@ echo join(range(10), "-")
 ## TODO
 -------
 
-* コンテキストの切り替わり時にユーザが自由に処理をフック
-* set filetype= 以外への対応
 * matcher、switcher を使用した機能の拡張
 * matcher、switcher の優先順位付け
-* context local な設定を行う
-* filetype を切り替えた場合、設定が変わってしまうのでどうにかしたい
+* コンテキストの範囲を取得
+* quickrun.vim との連携
+ * 元の filetype で :QuickRun
+ * 現在のコンテキスト範囲を :QuickRun
 
 

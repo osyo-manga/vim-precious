@@ -59,11 +59,39 @@ function! precious#switch()
 \		"base_filetype" : base_filetype,
 \		"context_filetype" : context_filetype,
 \	}
+
+	call precious#reset_contextlocal()
 	for switcher in values(s:switchers)
 		call switcher.apply(context)
 	endfor
 endfunction
 
+
+function! precious#contextlocal(expr)
+	if !exists("b:precious_option_backup")
+		let b:precious_option_backup = {}
+	endif
+
+	let expr = substitute(a:expr, '^no', '', "")
+	let option = matchstr(expr, '\zs\w*\ze.*')
+	
+	execute "let old = &l:".option
+
+	if !has_key(b:precious_option_backup, option)
+		let b:precious_option_backup[option] = old
+	endif
+	execute "setlocal "a:expr
+endfunction
+
+
+function! precious#reset_contextlocal()
+	if exists("b:precious_option_backup")
+		for setting in items(b:precious_option_backup)
+			execute "let &".setting[0]."=".setting[1]
+		endfor
+	endif
+	let b:precious_option_backup = {}
+endfunction
 
 
 let s:switch_last_error_msg = ""

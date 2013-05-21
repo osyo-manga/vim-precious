@@ -1,8 +1,8 @@
 scriptencoding utf-8
-if exists('g:loaded_precious')
-  finish
-endif
-let g:loaded_precious = 1
+" if exists('g:loaded_precious')
+"   finish
+" endif
+" let g:loaded_precious = 1
 
 let s:save_cpo = &cpo
 set cpo&vim
@@ -33,6 +33,11 @@ augroup END
 
 
 command! PreciousSwitch call precious#switch()
+
+
+command! -nargs=1 PreciousSetContextLocal
+\	call precious#contextlocal(<q-args>)
+
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
