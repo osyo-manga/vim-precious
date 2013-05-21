@@ -4,7 +4,7 @@
 
 
 ##Screencapture
-![capture](https://github.com/osyo-manga/vim-precious/images/capture.gif)
+![capture](images/capture.gif)
 
 
 
