@@ -1,9 +1,9 @@
-precious.txt	コンテキストによって |filetype| を切り換える
+precious.txt	コンテキストによって 'filetype' を切り換える
 
 ==============================================================================
 概要						*precious-introduction*
 
-*precious* はコンテキストによって |filetype| を切り換える為のプラグインです。
+*precious* はコンテキストによって 'filetype' を切り換える為のプラグインです。
 
 
 ==============================================================================
@@ -16,12 +16,12 @@ precious.txt	コンテキストによって |filetype| を切り換える
 コマンド					*precious-commands*
 
 :PreciousSwitch					*:PreciousSwitch*
-	コンテキストの |filetype| が変更されていれば　|precious-switcher| で定義
-	されている処理を呼び出す。
+	カーソル位置のコンテキストが現在の 'filetype' でなければ 
+	|precious-switcher| で定義されている処理を呼び出す。
 
 :PreciousSetContextLocal {option}		*:PreciousSetContextLocal*
 	現在のコンテキスに対する |setlocal| {option} を行います。
-	そのコンテキストでのみ設定を行いたい場合ような時に使用します。
+	そのコンテキストでのみ設定を行いたいような時に使用します。
 	ここで設定された値は設定したコンテキストを抜けるとリセットされます。
 
 Example :>
@@ -35,38 +35,38 @@ Example :>
 関数						*precious-functions*
 
 precious#context_filetype()			*precious#context_filetype()*
-	現在のコンテキストを意識した |filetype| を返します。
+	現在のコンテキストを意識した 'filetype' を返します。
 	コンテキストの判定は |precious-matcher| によって処理されます。
 	コンテキストが見つからなければ |precious#base_filetype()| を返します。
 
 precious#base_filetype()			*precious#base_filetype()*
-	元となる |filetype| を返します。
+	元となる 'filetype' を返します。
 
 precious#set_base_filetype()			*precious#set_base_filetype()*
-	元となる |filetype| を設定します。
+	元となる 'filetype' を設定します。
 
 
 ------------------------------------------------------------------------------
 autocmd						*precious-autocmd*
 
 PreciousFileType				*PreciousFileType*
-	コンテキストが切り替わった場合に呼ばれます。
+	コンテキストが切り替わった時に呼ばれます。
 Example: >
 	augroup test
 	autocmd!
-		" コンテキストが切り替わった場合にその filetype を表示
+		" コンテキストが切り替わった時にその filetype を表示
 		autocmd User PreciousFileType :echo precious#context_filetype()
 	augroup END
 <
 
 
 PreciousFiletype_{filetype}			*PreciousFileType_*
-	{filetype} のコンテキストへ切り替わった場合に呼ばれます。
+	{filetype} のコンテキストへ切り替わった時に呼ばれます。
 
 Example: >
 	augroup test
 	autocmd!
-		" ruby のコンテキストに入った場合、tabstop=8 を設定する
+		" ruby のコンテキストに入った時、tabstop=8 を設定する
 		" :PreciousSetContextLocal を使用することで
 		" ruby のコンテキストを抜けると元の値に戻すことが出来る
 		autocmd User PreciousFiletype_ruby :PreciousSetContextLocal tabstop=8
@@ -111,15 +111,15 @@ matcher						*precious-matcher*
 ==============================================================================
 switcher					*precious-switcher*
 
-コンテキストが切り替わった場合の処理を定義します。
+コンテキストが切り替わった時の処理を定義します。
 
 "setfiletype"					*precious-switcher-setfiletype*
-	コンテキストの |filetype| が |filetype| に設定されます。
-	この処理で |filetype| が設定された場合、|precious#base_filetype| の値
+	コンテキストの filetype が 'filetype' に設定されます。
+	この処理で 'filetype' が設定された場合、|precious#base_filetype| の値
 	は変更されません。
 
 "autocmd_context_filetype"		*precious-switcher-autocmd_context_filetype*
-	コンテキストが切り替わった場合に |precious-autocmd| を呼ぶ。
+	コンテキストが切り替わった時に |precious-autocmd| を呼び出します。
 
 ==============================================================================
 vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
