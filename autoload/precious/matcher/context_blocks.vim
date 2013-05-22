@@ -80,31 +80,11 @@ let s:constext_blocks = {
 \}
 
 
-function! s:compare_pos(i1, i2)
-  return a:i1[0] == a:i2[0] ? a:i1[1] - a:i2[1] : a:i1[0] - a:i2[0]
-endfunction"
-
 
 " a <= b
 function! s:pos_less_equal(a, b)
 	return a:a[0] == a:b[0] ? a:a[1] <= a:b[1] : a:a[0] <= a:b[0]
 endfunction
-
-" a == b
-function! s:pos_equal(a, b)
-	return a:a[0] == a:b[0] && a:a[1] == a:b[1]
-endfunction
-
-" a < b
-function! s:pos_less(a, b)
-	return a:a[0] == a:b[0] ? a:a[1] < a:b[1] : a:a[0] < a:b[0]
-endfunction
-
-" a > b
-function! s:pos_greater(a, b)
-	return a:a[0] == a:b[0] ? a:a[1] > a:b[1] : a:a[0] > a:b[0]
-endfunction
-
 
 let s:null_pos = [0, 0]
 
