@@ -9,7 +9,7 @@ let s:cahche = {}
 function! s:make_dummy_autocmd(filetype)
 	if !has_key(s:cahche, a:filetype)
 		augroup precious-switcher-autocmd_context_filetype-dummy
-			execute "autocmd User PreciousFileType_".a:filetype." execute ''"
+			execute "autocmd User PreciousFileType_".a:filetype." silent! execute ''"
 		augroup END
 	endif
 	let s:cahche[a:filetype] = 1
@@ -26,7 +26,7 @@ endfunction
 
 augroup precious-switcher-autocmd_context_filetype-dummy
 	autocmd!
-	autocmd User PreciousFileType execute ""
+	autocmd User PreciousFileType silent! execute ""
 augroup END
 
 
