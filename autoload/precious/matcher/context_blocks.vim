@@ -71,14 +71,13 @@ let s:context_blocks = {
 \		{
 \			'end': '</style>',
 \			'filetype': 'css',
-\			'start': '<script\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>'
+\			'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>'
 \		}
 \	],
 \	'markdown': [
 \		{"start" : '^\s*```s*\(\h\w*\)', "end" : '^```$', "filetype" : '\1'},
 \	],
 \}
-
 
 
 " a <= b
