@@ -9,7 +9,7 @@ let g:precious_matcher_blocks = get(g:, "precious_matcher_blocks", {})
 " base source
 " neocomplcache context filetype
 " https://github.com/Shougo/neocomplcache.vim/blob/master/autoload/neocomplcache/context_filetype.vim
-let s:constext_blocks = {
+let s:context_blocks = {
 \	'c': [
 \		{'end': '$', 'filetype': 'masm', 'start': '_*asm_*\s\+\h\w*'},
 \		{'end': '}', 'filetype': 'masm', 'start': '_*asm_*\s*\%(\n\s*\)\?{'},
@@ -37,7 +37,7 @@ let s:constext_blocks = {
 \		{
 \			'end': '</style>',
 \			'filetype': 'css',
-\			'start': '<script\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>'
+\			'start': '<style\%( [^>]*\)\? type="text/css"\%( [^>]*\)\?>'
 \		}
 \	],
 \	'int-nyaos': [{'end': '^\1', 'filetype': 'lua', 'start': '\<lua_e\s\+\(["'']\)'}],
@@ -136,7 +136,7 @@ endfunction
 
 function! s:get(filetype)
 	let base_filetype = a:filetype
-	let contexts = get(extend(copy(s:constext_blocks), g:precious_matcher_blocks), base_filetype, [])
+	let contexts = get(extend(copy(s:context_blocks), g:precious_matcher_blocks), base_filetype, [])
 	if empty(contexts)
 		return ""
 	endif
