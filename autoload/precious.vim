@@ -48,8 +48,12 @@ function! precious#regist_switcher(name, switcher)
 endfunction
 
 
-function! precious#switch()
-	let context_filetype = precious#context_filetype()
+function! precious#switch(...)
+	if a:0 == 0
+		let context_filetype = get(a:, 1, precious#context_filetype())
+	else
+		let context_filetype = a:1
+	endif
 	if context_filetype == &filetype
 		return 0
 	endif
@@ -99,15 +103,20 @@ function! precious#switch_last_error_message()
 	return s:switch_last_error_msg
 endfunction
 
-function! precious#autocmd_switch()
+
+function! precious#log()
+	return s:switch_last_error_msg
+endfunction
+
+
+function! precious#autocmd_switch(...)
 	try
 		call precious#switch()
 	catch //
-		echo "Throw precious#autocmd_switch() : Please 'echo precious#switch_last_error_message()'"
+		echo "Throw precious#autocmd_switch() : Please 'echo precious#log()'"
 		let s:switch_last_error_msg = v:throwpoint . " : " . v:errmsg . " : " . v:exception
 	endtry
 endfunction
-
 
 
 function! s:setup()
