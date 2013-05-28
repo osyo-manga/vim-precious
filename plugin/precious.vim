@@ -32,7 +32,13 @@ augroup precious-augroup
 augroup END
 
 
-command! PreciousSwitch call precious#switch()
+command! -nargs=? -complete=filetype
+\	PreciousSwitch
+\	call precious#switch(<f-args>)
+
+command!
+\	PreciousReset
+\	call precious#switch(precious#base_filetype())
 
 
 command! -nargs=1 PreciousSetContextLocal
