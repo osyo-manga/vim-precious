@@ -6,6 +6,11 @@ precious.txt	コンテキストによって 'filetype' を切り換える
 *precious* はコンテキストによって 'filetype' を切り換える為のプラグインです。
 
 
+Requirement:
+
+  context_filetype.vim - https://github.com/Shougo/context_filetype.vim
+
+
 ==============================================================================
 使い方						*precious-usage*
 
