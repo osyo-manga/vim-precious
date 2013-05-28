@@ -20,9 +20,8 @@ Requirement:
 ------------------------------------------------------------------------------
 コマンド					*precious-commands*
 
-:PreciousSwitch					*:PreciousSwitch*
-	カーソル位置のコンテキストが現在の 'filetype' でなければ 
-	|precious-switcher| で定義されている処理を呼び出す。
+:PreciousSwitch [{filetype}]			*:PreciousSwitch*
+	内部で {filetype} を引数にした |precious#switch()| を呼び出します。
 
 :PreciousSetContextLocal {option}		*:PreciousSetContextLocal*
 	現在のコンテキスに対する |setlocal| {option} を行います。
@@ -35,6 +34,10 @@ Example :>
 	PreciousSetContextLocal tabstop=8
 <
 
+:PreciousReset					*:PreciousReset*
+	|precious#base_filetype()| を引数にした |:PreciousSwitch| を呼び出しま
+	す。
+	元の 'filetype' に戻したい場合はこのコマンドを呼び出して下さい。
 
 ------------------------------------------------------------------------------
 関数						*precious-functions*
@@ -50,6 +53,11 @@ precious#base_filetype()			*precious#base_filetype()*
 precious#set_base_filetype()			*precious#set_base_filetype()*
 	元となる 'filetype' を設定します。
 
+precious#switch([{filetype}])			*precious##switch()*
+	{filetype} へ切り換える処理を行います。
+	{filetype} が現在の 'filetype' でなければ |precious-switcher| で定義さ
+	れている処理を呼び出します。
+	{filetype} が無ければ現在のコンテキストから 'filetype' を決定します。
 
 ------------------------------------------------------------------------------
 autocmd						*precious-autocmd*
@@ -108,9 +116,9 @@ matcher						*precious-matcher*
 現在のコンテキストがどの |filetype| なのかを判定する為に使用されます。
 
 					*precious-matcher-context_blocks*
-"context_blocks"
-	|searchpos| にてコンテキストを判定します。
-
+"context_filetype_vim"
+	外部プラグインである context_filetype.vim を使用してコンテキストの判定
+	を行います。
 
 
 ==============================================================================
@@ -125,6 +133,25 @@ switcher					*precious-switcher*
 
 "autocmd_context_filetype"		*precious-switcher-autocmd_context_filetype*
 	コンテキストが切り替わった時に |precious-autocmd| を呼び出します。
+
+
+==============================================================================
+設定例						*precious-switcher*
+
+insert mode に入った時に 'filetype' を切り換える。
+>
+	" カーソル移動時の自動切り替えを無効化
+	let g:precious_enable_auto_switch_CursorMoved = 0
+	let g:precious_enable_auto_switch_CursorMoved_i = 0
+
+	" insert に入った時にスイッチし、抜けた時に元に戻す
+	augroup test
+		autocmd!
+		autocmd InsertEnter * :PreciousSwitch
+		autocmd InsertLeave * :PreciousReset
+	augroup END
+<
+
 
 ==============================================================================
 vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
