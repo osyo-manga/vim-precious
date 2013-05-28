@@ -3,6 +3,12 @@
 現在のカーソル位置のコンテキストによって filetype を切り換える為のプラグインです。
 
 
+##Requirement
+
+* [context_filetype.vim](https://github.com/Shougo/context_filetype.vim)
+
+
+
 ##Screencapture
 ![capture](images/capture.gif)
 
