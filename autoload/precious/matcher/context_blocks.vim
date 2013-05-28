@@ -75,7 +75,7 @@ let s:context_blocks = {
 \		}
 \	],
 \	'markdown': [
-\		{"start" : '^\s*```s*\(\h\w*\)', "end" : '^```$', "filetype" : '\1'},
+\		{"start" : '^\s*```\s*\(\h\w*\)', "end" : '^\s*```$', "filetype" : '\1'},
 \	],
 \}
 
