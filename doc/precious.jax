@@ -57,7 +57,7 @@ precious#set_base_filetype()			*precious#set_base_filetype()*
 precious#switch([{filetype}])			*precious##switch()*
 	{filetype} へ切り換える処理を行います。
 	{filetype} が以前に呼び出された |precious#switch| から変更されていれば
-	|precious-switcher| で定義されている処理を呼び出します。
+	|precious-switchers| で定義されている処理を呼び出します。
 	{filetype} が無ければ現在のコンテキストから変更する {filetype} を決定
 	します。
 
@@ -65,6 +65,9 @@ precious#switch([{filetype}])			*precious##switch()*
 autocmd						*precious-autocmd*
 
 コンテキストが切り替わった時に処理を呼び出したい場合はこれを使用して下さい。
+
+PreciousFileTypeLeave_{filetype}		*PreciousFileTypeLeave_*
+	{filetype} から別のコンテキストに移った時に呼ばれます。
 
 PreciousFileType				*PreciousFileType*
 	コンテキストが切り替わった時に呼ばれます。
@@ -76,9 +79,6 @@ Example: >
 		autocmd User PreciousFileType :echo precious#context_filetype()
 	augroup END
 <
-
-PreciousFileTypeLeave_{filetype}		*PreciousFileTypeLeave_*
-	{filetype} から別のコンテキストに移った時に呼ばれます。
 
 PreciousFiletype_{filetype}			*PreciousFileType_*
 	{filetype} のコンテキストへ切り替わった時に呼ばれます。
@@ -99,8 +99,15 @@ Example: >
 ------------------------------------------------------------------------------
 変数						*precious-variables*
 
-g:precious_enable_switchers			*g:precious_enables*
-	
+g:precious_enable_switchers			*g:precious_enable_switchers*
+	|precious-switchers| の有無を設定する辞書です。
+	特定の |precious-switchers| を無効にしたい場合はこれに設定して下さい。
+Example: >
+	" setfiletype を無効にする
+	let g:precious_enable_switchers = {
+	\	"setfiletype" : 0
+	\}
+<
 
 			*precious-precious_enable_auto_switch_CursorMoved*
 g:precious_enable_auto_switch_CursorMoved
@@ -120,7 +127,7 @@ Default: >
 
 
 ==============================================================================
-matcher						*precious-matcher*
+matchers					*precious-matchers*
 
 現在のコンテキストがどの |filetype| なのかを判定する為に使用されます。
 
@@ -131,12 +138,12 @@ matcher						*precious-matcher*
 
 
 ==============================================================================
-switcher					*precious-switcher*
+switchers					*precious-switchers*
 
 コンテキストが切り替わった時の処理を定義します。
 
 "setfiletype"					*precious-switcher-setfiletype*
-	コンテキストの filetype が 'filetype' に設定されます。
+	コンテキストの filetype を 'filetype' に設定します。
 	この処理で 'filetype' が設定された場合、|precious#base_filetype| の値
 	は変更されません。
 
