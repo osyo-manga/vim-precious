@@ -136,7 +136,7 @@ switcher					*precious-switcher*
 
 
 ==============================================================================
-設定例						*precious-switcher*
+設定例						*precious-example*
 
 insert mode に入った時に 'filetype' を切り換える。
 >

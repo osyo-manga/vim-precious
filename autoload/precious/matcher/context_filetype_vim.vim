@@ -19,7 +19,7 @@ function! s:matcher.apply()
 endfunction
 
 
-call precious#regist_matcher("neocomplcache", s:matcher)
+call precious#regist_matcher("context_filetype_vim", s:matcher)
 unlet s:matcher
 
 
