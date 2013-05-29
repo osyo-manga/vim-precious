@@ -52,12 +52,14 @@ precious#base_filetype()			*precious#base_filetype()*
 
 precious#set_base_filetype()			*precious#set_base_filetype()*
 	元となる 'filetype' を設定します。
+	これは 'filetype' が設定された時に自動的に呼び出されます。
 
 precious#switch([{filetype}])			*precious##switch()*
 	{filetype} へ切り換える処理を行います。
-	{filetype} が現在の 'filetype' でなければ |precious-switcher| で定義さ
-	れている処理を呼び出します。
-	{filetype} が無ければ現在のコンテキストから 'filetype' を決定します。
+	{filetype} が以前に呼び出された |precious#switch| から変更されていれば
+	|precious-switcher| で定義されている処理を呼び出します。
+	{filetype} が無ければ現在のコンテキストから変更する {filetype} を決定
+	します。
 
 ------------------------------------------------------------------------------
 autocmd						*precious-autocmd*
