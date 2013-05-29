@@ -8,6 +8,9 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
+let g:precious_enable_switchers = get(g:, "precious_enable_switchers", {})
+
+
 let g:precious_enable_auto_switch_CursorMoved
 \	= get(g:, "precious_enable_auto_switch_cursormoved", 1)
 

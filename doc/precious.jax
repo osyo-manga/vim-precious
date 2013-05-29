@@ -62,8 +62,11 @@ precious#switch([{filetype}])			*precious##switch()*
 ------------------------------------------------------------------------------
 autocmd						*precious-autocmd*
 
+コンテキストが切り替わった時に処理を呼び出したい場合はこれを使用して下さい。
+
 PreciousFileType				*PreciousFileType*
 	コンテキストが切り替わった時に呼ばれます。
+
 Example: >
 	augroup test
 	autocmd!
@@ -72,6 +75,8 @@ Example: >
 	augroup END
 <
 
+PreciousFileTypeLeave_{filetype}		*PreciousFileTypeLeave_*
+	{filetype} から別のコンテキストに移った時に呼ばれます。
 
 PreciousFiletype_{filetype}			*PreciousFileType_*
 	{filetype} のコンテキストへ切り替わった時に呼ばれます。
@@ -86,12 +91,14 @@ Example: >
 	augroup END
 <
 
-
 ==============================================================================
 設定						*precious-setting*
 
 ------------------------------------------------------------------------------
 変数						*precious-variables*
+
+g:precious_enable_switchers			*g:precious_enables*
+	
 
 			*precious-precious_enable_auto_switch_CursorMoved*
 g:precious_enable_auto_switch_CursorMoved

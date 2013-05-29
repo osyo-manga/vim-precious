@@ -48,13 +48,23 @@ function! precious#regist_switcher(name, switcher)
 endfunction
 
 
+function! s:prev_context_filetype()
+	if !exists("b:precious_prev_context_filetype")
+		let b:precious_prev_context_filetype = precious#base_filetype()
+	endif
+	return b:precious_prev_context_filetype
+endfunction
+
+
 function! precious#switch(...)
 	if a:0 == 0
 		let context_filetype = get(a:, 1, precious#context_filetype())
 	else
 		let context_filetype = a:1
 	endif
-	if context_filetype == &filetype
+
+	let prev_context_filetype = s:prev_context_filetype()
+	if context_filetype == prev_context_filetype
 		return 0
 	endif
 
@@ -62,12 +72,16 @@ function! precious#switch(...)
 	let context = {
 \		"base_filetype" : base_filetype,
 \		"context_filetype" : context_filetype,
+\		"prev_context_filetype" : prev_context_filetype
 \	}
 
 	call precious#reset_contextlocal()
-	for switcher in values(s:switchers)
-		call switcher.apply(context)
+	for [name, switcher] in items(s:switchers)
+		if get(g:precious_enable_switchers, name, 1)
+			call switcher.apply(context)
+		endif
 	endfor
+	let b:precious_prev_context_filetype = context_filetype
 endfunction
 
 

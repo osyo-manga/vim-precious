@@ -5,30 +5,34 @@ set cpo&vim
 
 let s:switcher = {}
 
-let s:cahche = {}
-function! s:make_dummy_autocmd(filetype)
-	if !has_key(s:cahche, a:filetype)
-		augroup precious-switcher-autocmd_context_filetype-dummy
-			execute "autocmd User PreciousFileType_".a:filetype." silent! execute ''"
-		augroup END
+
+let s:cache_command = {}
+function! s:doautocmd_user(command)
+	if !has_key(s:cache_command, a:command)
+		execute "autocmd precious-switcher-autocmd_context_filetype-dummy"
+\			"User " . a:command." silent! execute ''"
+		let s:cache_command[a:command] = "doautocmd <nomodeline> User " . a:command
 	endif
-	let s:cahche[a:filetype] = 1
+	echom s:cache_command[a:command]
+	execute s:cache_command[a:command]
 endfunction
+
 
 function! s:switcher.apply(context)
 	let context_filetype = a:context.context_filetype
+	let prev_context_filetype = a:context.prev_context_filetype
+	echo prev_context_filetype
 	call s:make_dummy_autocmd(context_filetype)
 
-	doautocmd <nomodeline> User PreciousFileType
-	execute "doautocmd <nomodeline> User PreciousFileType_".context_filetype
+	call s:doautocmd_user("PreciousFileTypeLeave_".prev_context_filetype)
+	call s:doautocmd_user("PreciousFileType")
+	call s:doautocmd_user("PreciousFileType_".context_filetype)
 endfunction
 
 
 augroup precious-switcher-autocmd_context_filetype-dummy
 	autocmd!
-	autocmd User PreciousFileType silent! execute ""
 augroup END
-
 
 call precious#regist_switcher("autocmd_context_filetype", s:switcher)
 unlet s:switcher
