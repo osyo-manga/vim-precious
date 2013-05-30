@@ -13,7 +13,7 @@ function! s:doautocmd_user(command)
 \			"User " . a:command." silent! execute ''"
 		let s:cache_command[a:command] = "doautocmd <nomodeline> User " . a:command
 	endif
-	echom s:cache_command[a:command]
+
 	execute s:cache_command[a:command]
 endfunction
 
