@@ -22,7 +22,6 @@ function! s:switcher.apply(context)
 	let context_filetype = a:context.context_filetype
 	let prev_context_filetype = a:context.prev_context_filetype
 	echo prev_context_filetype
-	call s:make_dummy_autocmd(context_filetype)
 
 	call s:doautocmd_user("PreciousFileTypeLeave_".prev_context_filetype)
 	call s:doautocmd_user("PreciousFileType")
