@@ -48,5 +48,17 @@ command! -nargs=1 PreciousSetContextLocal
 \	call precious#contextlocal(<q-args>)
 
 
+" textobj
+try
+	call textobj#user#plugin('precious', {
+\     '-': {
+\       'select-i': 'isb',
+\     '*select-i-function*': 'textobj#precious#select_i_forward',
+\     },
+\   })
+catch
+endtry
+
+
 let &cpo = s:save_cpo
 unlet s:save_cpo

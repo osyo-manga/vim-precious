@@ -93,6 +93,14 @@ Example: >
 	augroup END
 <
 
+------------------------------------------------------------------------------
+マッピング					*textobj-precious-mapping*
+
+<Plug>(textobj-precious-i)			*<Plug>(textobj-precious-i)*
+
+元の filetype を基準としたコンテキストの範囲
+
+
 ==============================================================================
 設定						*precious-setting*
 
@@ -166,6 +174,15 @@ insert mode に入った時に 'filetype' を切り換える。
 		autocmd InsertEnter * :PreciousSwitch
 		autocmd InsertLeave * :PreciousReset
 	augroup END
+<
+
+
+コンテキストの範囲を |quickrun.vim| する
+>
+	" <Space>qic で quickrun.vim する
+	nmap <Space>q <Plug>(quickrun-op)
+	omap ic <Plug>(textobj-precious-i)
+	vmap ic <Plug>(textobj-precious-i)
 <
 
 
