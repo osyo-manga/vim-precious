@@ -111,6 +111,8 @@ g:precious_enable_switchers			*g:precious_enable_switchers*
 	|precious-switchers| の有無を設定する辞書です。
 	特定の 'filetype' で |precious-switchers| を無効にしたい場合はこれに
 	設定して下さい。
+	また、この時に判定する 'filetype' には |precious#base_filetype()| が使
+	用されます。
 Example: >
 	" filetype=vim 以外の setfiletype を無効にする
 	" * は全ての filetype に適用する
@@ -133,7 +135,7 @@ Default: >
 <
 
 			*precious-precious_enable_auto_switch_CursorMoved_i*
-g:precious_enable_auto_switch_CursorMoved
+g:precious_enable_auto_switch_CursorMoved_i
 	1 が設定されていれば |CursorMovedI| 時に |:PreciousSwitch| を呼び出しま
 	す。
 Default: >
