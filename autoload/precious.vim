@@ -55,18 +55,16 @@ function! s:prev_context_filetype()
 	return b:precious_prev_context_filetype
 endfunction
 
+
 function! s:is_enable_switch(switch, filetype)
 	return (get(get(g:precious_enable_switchers, "*", {}), a:switch, 1)
 \		 || get(get(g:precious_enable_switchers, a:filetype, {}), a:switch, 0))
 \		 && get(get(g:precious_enable_switchers, a:filetype, {}), a:switch, 1)
 endfunction
 
-function! precious#switch(...)
-	if a:0 == 0
-		let context_filetype = get(a:, 1, precious#context_filetype())
-	else
-		let context_filetype = a:1
-	endif
+
+function! precious#switch(filetype)
+	let context_filetype = a:filetype
 
 	let prev_context_filetype = s:prev_context_filetype()
 	if context_filetype == prev_context_filetype
@@ -131,7 +129,7 @@ endfunction
 
 function! precious#autocmd_switch(...)
 	try
-		call precious#switch()
+		call call("precious#switch", a:000)
 	catch //
 		echo "Throw precious#autocmd_switch() : Please 'echo precious#log()'"
 		let s:switch_last_error_msg = v:throwpoint . " : " . v:errmsg . " : " . v:exception

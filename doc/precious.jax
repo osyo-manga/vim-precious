@@ -22,6 +22,7 @@ Requirement:
 
 :PreciousSwitch [{filetype}]			*:PreciousSwitch*
 	内部で {filetype} を引数にした |precious#switch()| を呼び出します。
+	引数がなければ |precious#context_filetype()| の値が使用されます。
 
 :PreciousSetContextLocal {option}		*:PreciousSetContextLocal*
 	現在のコンテキスに対する |setlocal| {option} を行います。
@@ -54,12 +55,10 @@ precious#set_base_filetype()			*precious#set_base_filetype()*
 	元となる 'filetype' を設定します。
 	これは 'filetype' が設定された時に自動的に呼び出されます。
 
-precious#switch([{filetype}])			*precious##switch()*
+precious#switch({filetype})				*precious##switch()*
 	{filetype} へ切り換える処理を行います。
-	{filetype} が以前に呼び出された |precious#switch| から変更されていれば
+	{filetype} が以前に呼び出された |precious#switch()| から変更されていれば
 	|precious-switchers| で定義されている処理を呼び出します。
-	{filetype} が無ければ現在のコンテキストから変更する {filetype} を決定
-	します。
 
 ------------------------------------------------------------------------------
 autocmd						*precious-autocmd*
@@ -126,21 +125,28 @@ Example: >
 	\}
 <
 
-			*precious-precious_enable_auto_switch_CursorMoved*
-g:precious_enable_auto_switch_CursorMoved
+			*precious-precious_enable_switch_CursorMoved*
+g:precious_enable_switch_CursorMoved
+	'filetype' をキーに持つ辞書です。
 	1 が設定されていれば |CursorMoved| 時に |:PreciousSwitch| を呼び出しま
 	す。
-Default: >
-	let g:precious_enable_auto_switch_CursorMoved = 1
+	デフォルトでは全ての 'filetype' で有効になっています。
+Example: >
+	" filetype=help 以外の setfiletype を無効にする
+	" * は全ての filetype に適用する
+	let g:precious_enable_switch_CursorMoved = {
+	\	"*" : 1,
+	\	"help" : 0
+	\}
 <
 
-			*precious-precious_enable_auto_switch_CursorMoved_i*
-g:precious_enable_auto_switch_CursorMoved_i
+			*precious-precious_enable_switch_CursorMoved_i*
+g:precious_enable_switch_CursorMoved_i
+	'filetype' をキーに持つ辞書です。
 	1 が設定されていれば |CursorMovedI| 時に |:PreciousSwitch| を呼び出しま
 	す。
-Default: >
-	let g:precious_enable_auto_switch_CursorMoved_i = 1
-<
+	デフォルトでは全ての 'filetype' で有効になっています。
+	使い方は |g:precious_enable_switch_CursorMoved| と同じです。
 
 
 ==============================================================================
@@ -216,6 +222,19 @@ filetype=vim 以外で |precious-switcher-setfiletype| を無効にする
 	\	"vim" : {
 	\		"setfiletype" : 1
 	\	},
+	\}
+<
+
+
+filetype=help でカーソル移動時の |PreciousSwitch| を無効にする。
+
+>
+	let g:precious_enable_switch_CursorMoved = {
+	\	"help" : 0
+	\}
+	
+	let g:precious_enable_switch_CursorMoved_i= {
+	\	"help" : 0
 	\}
 <
 

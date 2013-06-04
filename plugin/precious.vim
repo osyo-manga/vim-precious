@@ -11,11 +11,25 @@ set cpo&vim
 let g:precious_enable_switchers = get(g:, "precious_enable_switchers", {})
 
 
-let g:precious_enable_auto_switch_CursorMoved
-\	= get(g:, "precious_enable_auto_switch_cursormoved", 1)
+let g:precious_enable_switch_CursorMoved
+\	= get(g:, "precious_enable_switch_CursorMoved", {})
 
-let g:precious_enable_auto_switch_CursorMoved_i
-\	= get(g:, "precious_enable_auto_switch_CursorMoved_i", 1)
+let g:precious_enable_switch_CursorMoved_i
+\	= get(g:, "precious_enable_switch_CursorMoved_i", {})
+
+
+function! s:is_enable_switch_CursorMoved(filetype)
+	return (get(g:precious_enable_switch_CursorMoved, "*", 1)
+\		 || get(g:precious_enable_switch_CursorMoved, a:filetype, 0))
+\		 && get(g:precious_enable_switch_CursorMoved, a:filetype, 1)
+endfunction
+
+
+function! s:is_enable_switch_CursorMoved_i(filetype)
+	return (get(g:precious_enable_switch_CursorMoved_i, "*", 1)
+\		 || get(g:precious_enable_switch_CursorMoved_i, a:filetype, 0))
+\		 && get(g:precious_enable_switch_CursorMoved_i, a:filetype, 1)
+endfunction
 
 
 augroup precious-augroup
@@ -23,29 +37,34 @@ augroup precious-augroup
 	autocmd FileType * call precious#set_base_filetype(&filetype)
 
 	autocmd CursorMoved *
-\		if g:precious_enable_auto_switch_CursorMoved
-\|			call precious#autocmd_switch()
+\		if s:is_enable_switch_CursorMoved(precious#base_filetype())
+\|			PreciousSwitchAutcmd
 \|		endif
 
 	autocmd CursorMovedI *
-\		if g:precious_enable_auto_switch_CursorMoved_i
-\|			call precious#autocmd_switch()
+\		if s:is_enable_switch_CursorMoved_i(precious#base_filetype())
+\|			PreciousSwitchAutcmd
 \|		endif
 
 augroup END
 
 
-command! -nargs=? -complete=filetype
+command! -bar -nargs=? -complete=filetype
 \	PreciousSwitch
-\	call precious#switch(<f-args>)
+\	call precious#switch(empty(<q-args>) ? precious#context_filetype() : <q-args>)
 
-command!
+command! -bar
 \	PreciousReset
 \	call precious#switch(precious#base_filetype())
 
 
 command! -nargs=1 PreciousSetContextLocal
 \	call precious#contextlocal(<q-args>)
+
+
+command! -bar -nargs=? -complete=filetype
+\	PreciousSwitchAutcmd
+\	call precious#autocmd_switch(empty(<q-args>) ? precious#context_filetype() : <q-args>)
 
 
 " textobj
@@ -58,6 +77,7 @@ try
 \   })
 catch
 endtry
+
 
 
 let &cpo = s:save_cpo
