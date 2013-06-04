@@ -15,6 +15,45 @@
 ![capture](images/capture.gif)
 
 
+##Supported
+* c
+ * masm
+ * gas
+* cpp
+ * masm
+ * gas
+* d
+ * masm
+* eruby
+ * ruby
+* help
+ * vim
+* html
+ * javascript
+ * coffee
+ * css
+* int-nyaos
+ * lua
+* lua
+ * vim
+* nyaos
+ * lua
+* perl16
+ * pir
+* python
+ * vim
+* vim
+ * python
+ * ruby
+ * lua
+* vimshell
+ * vim
+* xhtml
+ * javascript
+ * coffee
+ * css
+* markdown
+
 
 ##Example
 
