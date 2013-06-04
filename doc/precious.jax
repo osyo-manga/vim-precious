@@ -109,11 +109,18 @@ Example: >
 
 g:precious_enable_switchers			*g:precious_enable_switchers*
 	|precious-switchers| の有無を設定する辞書です。
-	特定の |precious-switchers| を無効にしたい場合はこれに設定して下さい。
+	特定の 'filetype' で |precious-switchers| を無効にしたい場合はこれに
+	設定して下さい。
 Example: >
-	" setfiletype を無効にする
+	" filetype=vim 以外の setfiletype を無効にする
+	" * は全ての filetype に適用する
 	let g:precious_enable_switchers = {
-	\	"setfiletype" : 0
+	\	"*" : {
+	\		"setfiletype" : 0
+	\	},
+	\	"vim" : {
+	\		"setfiletype" : 1
+	\	},
 	\}
 <
 
@@ -183,6 +190,31 @@ insert mode に入った時に 'filetype' を切り換える。
 	nmap <Space>q <Plug>(quickrun-op)
 	omap ic <Plug>(textobj-precious-i)
 	vmap ic <Plug>(textobj-precious-i)
+<
+
+
+filetype=vim で |precious-switcher-setfiletype| を無効にする
+
+>
+	let g:precious_enable_switchers = {
+	\	"vim" : {
+	\		"setfiletype" : 0
+	\	},
+	\}
+<
+
+
+filetype=vim 以外で |precious-switcher-setfiletype| を無効にする
+
+>
+	let g:precious_enable_switchers = {
+	\	"*" : {
+	\		"setfiletype" : 0
+	\	},
+	\	"vim" : {
+	\		"setfiletype" : 1
+	\	},
+	\}
 <
 
 

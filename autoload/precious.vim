@@ -55,6 +55,11 @@ function! s:prev_context_filetype()
 	return b:precious_prev_context_filetype
 endfunction
 
+function! s:is_enable_switch(switch, filetype)
+	return (get(get(g:precious_enable_switchers, "*", {}), a:switch, 1)
+\		 || get(get(g:precious_enable_switchers, a:filetype, {}), a:switch, 0))
+\		 && get(get(g:precious_enable_switchers, a:filetype, {}), a:switch, 1)
+endfunction
 
 function! precious#switch(...)
 	if a:0 == 0
@@ -77,7 +82,8 @@ function! precious#switch(...)
 
 	call precious#reset_contextlocal()
 	for [name, switcher] in items(s:switchers)
-		if get(g:precious_enable_switchers, name, 1)
+		if s:is_enable_switch(name, base_filetype)
+" 		if get(g:precious_enable_switchers, name, 1)
 			call switcher.apply(context)
 		endif
 	endfor
