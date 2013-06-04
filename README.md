@@ -6,6 +6,8 @@
 ##Requirement
 
 * [context_filetype.vim](https://github.com/Shougo/context_filetype.vim)
+* [vim-textobj-user](https://github.com/kana/vim-textobj-user)
+ * textobj を使用したい時のみ必要。
 
 
 
@@ -41,6 +43,8 @@ print "-".join(map(str, range(1, 10)))
 EOF
 "---------------------------------------------------------
 
+echo join(range(10), "-")
+
 
 " autocmd
 " コンテキストに入った時の処理をフック
@@ -69,17 +73,30 @@ augroup END
 " augroup END
 
 
-echo join(range(10), "-")
+" quickrun.vim との連携
+" <Space>qic で quickrun.vim する
+" ただし、この場合 switchers の "setfiletype" が有効になっている必要が
+" あります
+" nmap <Space>q <Plug>(quickrun-op)
+" omap ic <Plug>(textobj-precious-i)
+" vmap ic <Plug>(textobj-precious-i)
 "------------------------------------------------------------------------------
 ```
+
+
+##Implementations
+
+* コンテキストに入った時に自動的に filetype を切り換える
+* コンテキストが切り替わった時に autocmd User で処理がフック出来る
+* コンテキストの範囲の textobj に対応
+* quickrun.vim との連携
+ * コンテキストの範囲を quickrun する
+
 
 ##TODO
 
 * matcher、switcher を使用した機能の拡張
 * matcher、switcher の優先順位付け
 * コンテキストの範囲を取得
-* quickrun.vim との連携
- * 元の filetype で :QuickRun
- * 現在のコンテキスト範囲を :QuickRun
 
 

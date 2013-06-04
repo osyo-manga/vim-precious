@@ -10,9 +10,15 @@ Requirement:
 
   context_filetype.vim - https://github.com/Shougo/context_filetype.vim
 
+  vim-textobj-user - https://github.com/kana/vim-textobj-user
+  ※textobj を使用したい場合のみ必要
+
 
 ==============================================================================
 使い方						*precious-usage*
+
+対応しているコンテキストにカーソルが移動すると自動的に 'filetype' が設定されま
+す。
 
 
 ==============================================================================
@@ -195,6 +201,8 @@ insert mode に入った時に 'filetype' を切り換える。
 コンテキストの範囲を |quickrun.vim| する
 >
 	" <Space>qic で quickrun.vim する
+	" ただし、この場合 switchers の "setfiletype" が有効になっている必要が
+	" あります
 	nmap <Space>q <Plug>(quickrun-op)
 	omap ic <Plug>(textobj-precious-i)
 	vmap ic <Plug>(textobj-precious-i)
