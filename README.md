@@ -12,7 +12,7 @@
 
 
 ##Screencapture
-![capture](images/capture.gif)
+![capture](images/precious.gif)
 
 
 ##Supported
