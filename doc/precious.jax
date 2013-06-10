@@ -11,7 +11,10 @@ Requirement:
   context_filetype.vim - https://github.com/Shougo/context_filetype.vim
 
   vim-textobj-user - https://github.com/kana/vim-textobj-user
-  ※textobj を使用したい場合のみ必要
+  ※|<Plug>(textobj-precious-i)| を使用したい場合のみ必要
+
+  quickrun.vim - https://github.com/thinca/vim-quickrun
+  ※|<Plug>(precious-quickrun-op)| を使用した場合のみ必要
 
 
 ==============================================================================
@@ -61,10 +64,15 @@ precious#set_base_filetype()			*precious#set_base_filetype()*
 	元となる 'filetype' を設定します。
 	これは 'filetype' が設定された時に自動的に呼び出されます。
 
-precious#switch({filetype})				*precious##switch()*
+precious#switch({filetype})			*precious##switch()*
 	{filetype} へ切り換える処理を行います。
 	{filetype} が以前に呼び出された |precious#switch()| から変更されていれば
 	|precious-switchers| で定義されている処理を呼び出します。
+
+precious#quickrun_operator({wise})		*precious#quickrun_operator()*
+	'operatorfunc' に対して設定するための関数です。
+	動作は |quickrun#operator()| と同じですが |quickrun-option-type| は現
+	在のコンテキストの 'filetype' が使用されます。
 
 ------------------------------------------------------------------------------
 autocmd						*precious-autocmd*
@@ -102,8 +110,13 @@ Example: >
 マッピング					*textobj-precious-mapping*
 
 <Plug>(textobj-precious-i)			*<Plug>(textobj-precious-i)*
+	元の filetype を基準としたコンテキストの範囲の textobj です。
+	このマッピングを使用するためには下記のプラグインを導入しておく必要があ
+	ります。
 
-元の filetype を基準としたコンテキストの範囲
+<Plug>(precious-quickrun-op)			*<Plug>(precious-quickrun-op)*
+	続くモーションの範囲を実行します。これは
+	'operatorfunc' の値を "precious#quickrun_operator" に変更します。
 
 
 ==============================================================================
@@ -207,7 +220,7 @@ insert mode に入った時に 'filetype' を切り換える。
 	" <Space>qic で quickrun.vim する
 	" ただし、この場合 switchers の "setfiletype" が有効になっている必要が
 	" あります
-	nmap <Space>q <Plug>(quickrun-op)
+	nmap <Space>q <Plug>(precious-quickrun-op)
 	omap ic <Plug>(textobj-precious-i)
 	vmap ic <Plug>(textobj-precious-i)
 <

@@ -79,6 +79,10 @@ catch
 endtry
 
 
+" quickrun.vim operator
+nnoremap <silent> <Plug>(precious-quickrun-op)
+\	:<C-u>set operatorfunc=precious#quickrun_operator<CR>g@
+
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

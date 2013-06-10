@@ -81,7 +81,6 @@ function! precious#switch(filetype)
 	call precious#reset_contextlocal()
 	for [name, switcher] in items(s:switchers)
 		if s:is_enable_switch(name, base_filetype)
-" 		if get(g:precious_enable_switchers, name, 1)
 			call switcher.apply(context)
 		endif
 	endfor
@@ -130,7 +129,7 @@ endfunction
 function! precious#autocmd_switch(...)
 	try
 		call call("precious#switch", a:000)
-	catch //
+	catch
 		echo "Throw precious#autocmd_switch() : Please 'echo precious#log()'"
 		let s:switch_last_error_msg = v:throwpoint . " : " . v:errmsg . " : " . v:exception
 	endtry
@@ -147,6 +146,25 @@ function! s:setup()
 	endfor
 endfunction
 call s:setup()
+
+
+function! precious#quickrun_operator(wise)
+	let type = precious#context_filetype()
+	let wise = {
+	\ 'line': 'V',
+	\ 'char': 'v',
+	\ 'block': "\<C-v>" }[a:wise]
+	call quickrun#run({
+\		'region': {
+\			'first': getpos("'[")[1 :],
+\			'last':  getpos("']")[1 :],
+\			'wise': wise,
+\			'selection': 'inclusive',
+\		},
+\		"type" : type
+\	},
+\	)
+endfunction
 
 
 let &cpo = s:save_cpo
