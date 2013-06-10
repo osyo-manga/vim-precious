@@ -7,7 +7,9 @@
 
 * [context_filetype.vim](https://github.com/Shougo/context_filetype.vim)
 * [vim-textobj-user](https://github.com/kana/vim-textobj-user)
- * textobj を使用したい時のみ必要。
+ * `<Plug>(textobj-precious-i)` を使用したい時のみ必要。
+* [quickrun.vim](https://github.com/thinca/vim-quickrun)
+ * `<Plug>(precious-quickrun-op)` を使用したい時のみ必要。
 
 
 
@@ -114,9 +116,9 @@ augroup END
 
 " quickrun.vim との連携
 " <Space>qic で quickrun.vim する
-" ただし、この場合 switchers の "setfiletype" が有効になっている必要が
-" あります
-" nmap <Space>q <Plug>(quickrun-op)
+" filetype が切り替わってない状態でも
+" コンテキストから quickrun.vim で使用する type を決定
+" nmap <Space>q <Plug>(precious-quickrun-op)
 " omap ic <Plug>(textobj-precious-i)
 " vmap ic <Plug>(textobj-precious-i)
 "------------------------------------------------------------------------------
@@ -130,6 +132,7 @@ augroup END
 * コンテキストの範囲の textobj に対応
 * quickrun.vim との連携
  * コンテキストの範囲を quickrun する
+ * filetype が切り替わってない状態でも type を設定
 
 
 ##TODO
