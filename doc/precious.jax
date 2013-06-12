@@ -261,6 +261,22 @@ filetype=help でカーソル移動時の |:PreciousSwitch| を無効にする�
 <
 
 
+'filetype' を変更せずに 'syntax' のみ設定する
+>
+" setfiletype を無効
+let g:precious_enable_switchers = {
+\	"*" : {
+\		"setfiletype" : 0
+\	},
+\}
+
+" コンテキストが切り替わった場合、syntax を設定
+augroup test
+	autocmd!
+	autocmd User PreciousFiletype let &l:syntax = precious#context_filetype()
+augroup END
+<
+
 
 ==============================================================================
 vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
