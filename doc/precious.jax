@@ -1,6 +1,23 @@
 precious.txt	コンテキストによって 'filetype' を切り換える
 
 ==============================================================================
+目次						*precious-contents*
+
+概要				|precious-introduction|
+使い方				|precious-usage|
+インターフェース		|precious-interface|
+  コマンド			  |precious-commands|
+  関数				  |precious-functions|
+  autocmd			  |precious-autocmd|
+  マッピング			  |textobj-precious-mapping|
+設定				|precious-setting|
+  変数				  |precious-variables|
+matchers			|precious-matchers|
+switchers			|precious-switchers|
+設定例				|precious-example|
+
+
+==============================================================================
 概要						*precious-introduction*
 
 *precious* はコンテキストによって 'filetype' を切り換える為のプラグインです。
