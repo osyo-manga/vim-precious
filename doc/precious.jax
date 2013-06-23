@@ -110,7 +110,7 @@ Example: >
 	augroup END
 <
 
-PreciousFiletype_{filetype}			*PreciousFileType_*
+PreciousFileType_{filetype}			*PreciousFileType_*
 	{filetype} のコンテキストへ切り替わった時に呼ばれます。
 
 Example: >
@@ -119,7 +119,7 @@ Example: >
 		" ruby のコンテキストに入った時、tabstop=8 を設定する
 		" :PreciousSetContextLocal を使用することで
 		" ruby のコンテキストを抜けると元の値に戻すことが出来る
-		autocmd User PreciousFiletype_ruby :PreciousSetContextLocal tabstop=8
+		autocmd User PreciousFileType_ruby :PreciousSetContextLocal tabstop=8
 	augroup END
 <
 
@@ -290,7 +290,7 @@ let g:precious_enable_switchers = {
 " コンテキストが切り替わった場合、syntax を設定
 augroup test
 	autocmd!
-	autocmd User PreciousFiletype let &l:syntax = precious#context_filetype()
+	autocmd User PreciousFileType let &l:syntax = precious#context_filetype()
 augroup END
 <
 
