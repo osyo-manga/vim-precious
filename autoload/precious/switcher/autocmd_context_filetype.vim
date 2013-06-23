@@ -6,12 +6,21 @@ set cpo&vim
 let s:switcher = {}
 let s:group = "precious-acf-dummy"
 
+execute "augroup" s:group
+	autocmd!
+augroup END
+
+
 let s:cache_command = {}
 function! s:doautocmd_user(command)
 	if !has_key(s:cache_command, a:command)
 		execute "autocmd " . s:group
 \			"User " . a:command." silent! execute ''"
-		let s:cache_command[a:command] = "doautocmd <nomodeline> User " . a:command
+		if has("patch438")
+			let s:cache_command[a:command] = "doautocmd <nomodeline> User " . a:command
+		else
+			let s:cache_command[a:command] = "doautocmd User " . a:command
+		endif
 	endif
 
 	execute s:cache_command[a:command]
@@ -27,8 +36,6 @@ function! s:switcher.apply(context)
 	call s:doautocmd_user("PreciousFileType_".context_filetype)
 endfunction
 
-
-execute "augroup" s:group
 
 call precious#regist_switcher("autocmd_context_filetype", s:switcher)
 unlet s:switcher
