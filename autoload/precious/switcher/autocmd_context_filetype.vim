@@ -16,7 +16,7 @@ function! s:doautocmd_user(command)
 	if !has_key(s:cache_command, a:command)
 		execute "autocmd " . s:group
 \			"User " . a:command." silent! execute ''"
-		if has("patch438")
+		if v:version > 703 || v:version == 703 && has("patch438")
 			let s:cache_command[a:command] = "doautocmd <nomodeline> User " . a:command
 		else
 			let s:cache_command[a:command] = "doautocmd User " . a:command
