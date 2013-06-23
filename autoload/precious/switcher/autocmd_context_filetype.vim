@@ -4,12 +4,12 @@ set cpo&vim
 
 
 let s:switcher = {}
-
+let s:group = "precious-acf-dummy"
 
 let s:cache_command = {}
 function! s:doautocmd_user(command)
 	if !has_key(s:cache_command, a:command)
-		execute "autocmd precious-switcher-autocmd_context_filetype-dummy"
+		execute "autocmd " . s:group
 \			"User " . a:command." silent! execute ''"
 		let s:cache_command[a:command] = "doautocmd <nomodeline> User " . a:command
 	endif
@@ -28,9 +28,7 @@ function! s:switcher.apply(context)
 endfunction
 
 
-augroup precious-switcher-autocmd_context_filetype-dummy
-	autocmd!
-augroup END
+execute "augroup" s:group
 
 call precious#regist_switcher("autocmd_context_filetype", s:switcher)
 unlet s:switcher
