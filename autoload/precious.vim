@@ -79,12 +79,15 @@ function! precious#switch(filetype)
 \	}
 
 	call precious#reset_contextlocal()
-	for [name, switcher] in items(s:switchers)
-		if s:is_enable_switch(name, base_filetype)
-			call switcher.apply(context)
-		endif
-	endfor
-	let b:precious_prev_context_filetype = context_filetype
+	try
+		for [name, switcher] in items(s:switchers)
+			if s:is_enable_switch(name, base_filetype)
+				call switcher.apply(context)
+			endif
+		endfor
+	finally
+		let b:precious_prev_context_filetype = context_filetype
+	endtry
 endfunction
 
 
