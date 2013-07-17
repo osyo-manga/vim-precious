@@ -14,7 +14,7 @@
 
 
 ##Screencapture
-![capture](images/precious.gif)
+![capture](https://f.cloud.github.com/assets/214488/810517/1d435a7c-eeb9-11e2-8b98-b2275db39695.gif)
 
 
 ##Supported
