@@ -71,7 +71,7 @@ command! -bar -nargs=? -complete=filetype
 try
 	call textobj#user#plugin('precious', {
 \     '-': {
-\       'select-i': 'isb',
+\       'select-i': 'icx',
 \     '*select-i-function*': 'textobj#precious#select_i_forward',
 \     },
 \   })
