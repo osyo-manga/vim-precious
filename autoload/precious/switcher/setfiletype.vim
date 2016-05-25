@@ -24,9 +24,14 @@ function! s:reset_filetype()
 	endif
 endfunction
 
+function! s:recover_filetype()
+	call precious#autocmd_switch(precious#context_filetype())
+endfunction
+
 augroup precious-switcher-setfiletype
 	autocmd!
 	autocmd BufWinLeave * call s:reset_filetype()
+	autocmd BufWinEnter * call s:recover_filetype()
 augroup END
 
 let &cpo = s:save_cpo
