@@ -17,6 +17,9 @@ let g:precious_enable_switch_CursorMoved
 let g:precious_enable_switch_CursorMoved_i
 \	= get(g:, "precious_enable_switch_CursorMoved_i", {})
 
+let g:precious_enable_switch_CursorHold
+\	= get(g:, "precious_enable_switch_CursorHold", {})
+
 
 function! s:is_enable_switch_CursorMoved(filetype)
 	return (get(g:precious_enable_switch_CursorMoved, "*", 1)
@@ -32,20 +35,36 @@ function! s:is_enable_switch_CursorMoved_i(filetype)
 endfunction
 
 
+function! s:is_enable_switch_CursorHold(filetype)
+	return (get(g:precious_enable_switch_CursorHold, "*", 1)
+\		 || get(g:precious_enable_switch_CursorHold, a:filetype, 0))
+\		 && get(g:precious_enable_switch_CursorHold, a:filetype, 1)
+endfunction
+
+
 augroup precious-augroup
 	autocmd!
 	autocmd FileType * call precious#set_base_filetype(&filetype)
 
 	autocmd CursorMoved *
 \		if s:is_enable_switch_CursorMoved(precious#base_filetype())
+\		&& get(b:, "precious_switch_lock", 0) == 0
 \|			PreciousSwitchAutcmd
 \|		endif
 
-	autocmd CursorMovedI *
-\		if s:is_enable_switch_CursorMoved_i(precious#base_filetype())
+	autocmd CursorMoved *
+\		if s:is_enable_switch_CursorMoved(precious#base_filetype())
+\		&& get(b:, "precious_switch_lock", 0) == 0
 \|			PreciousSwitchAutcmd
 \|		endif
 
+	autocmd CursorHold *
+\		if s:is_enable_switch_CursorHold(precious#base_filetype())
+\		&& get(b:, "precious_switch_lock", 0) == 0
+\|			PreciousSwitchAutcmd
+\|		endif
+
+	autocmd BufEnter,BufWinEnter * PreciousSwitchAutcmd
 augroup END
 
 
@@ -65,6 +84,15 @@ command! -nargs=1 PreciousSetContextLocal
 command! -bar -nargs=? -complete=filetype
 \	PreciousSwitchAutcmd
 \	call precious#autocmd_switch(empty(<q-args>) ? precious#context_filetype() : <q-args>)
+
+
+command! -bar PreciousSwitchLock
+\	let b:precious_switch_lock = 1
+\|	PreciousReset
+
+command! -bar PreciousSwitchUnlock
+\	let b:precious_switch_lock = 0
+\|	PreciousSwitch
 
 
 " textobj
