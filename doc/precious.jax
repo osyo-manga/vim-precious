@@ -184,6 +184,12 @@ g:precious_enable_switch_CursorMoved_i
 	デフォルトでは全ての 'filetype' で有効になっています。
 	使い方は |g:precious_enable_switch_CursorMoved| と同じです。
 
+				*g:textobj_precious_no_default_key_mappings*
+g:textobj_precious_no_default_key_mappings
+	1 が設定されていれば textobj のキーマッピングを行いません。
+Default: >
+	let g:textobj_precious_no_default_key_mappings = 0
+<
 
 ==============================================================================
 matchers					*precious-matchers*
