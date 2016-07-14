@@ -22,7 +22,7 @@ function! s:switcher.apply(context)
 endfunction
 
 
-call precious#regist_switcher("outer-region", s:switcher)
+call precious#regist_switcher("outer_region", s:switcher)
 unlet s:switcher
 
 
