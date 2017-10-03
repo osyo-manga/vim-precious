@@ -52,8 +52,8 @@ augroup precious-augroup
 \|			PreciousSwitchAutcmd
 \|		endif
 
-	autocmd CursorMoved *
-\		if s:is_enable_switch_CursorMoved(precious#base_filetype())
+	autocmd CursorMovedI *
+\		if s:is_enable_switch_CursorMoved_i(precious#base_filetype())
 \		&& get(b:, "precious_switch_lock", 0) == 0
 \|			PreciousSwitchAutcmd
 \|		endif

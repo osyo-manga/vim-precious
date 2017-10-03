@@ -2,6 +2,9 @@
 
 現在のカーソル位置のコンテキストによって filetype を切り換える為のプラグインです。
 
+Set the buffer filetype based on the code block the cursor currently resides in.
+
+The code block filetype is determined by the [context_filetype.vim](https://github.com/Shougo/context_filetype.vim) plugin.
 
 ## Requirement
 
