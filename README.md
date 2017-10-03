@@ -1,63 +1,63 @@
-#precious.vim
+# precious.vim
 
 現在のカーソル位置のコンテキストによって filetype を切り換える為のプラグインです。
 
 
-##Requirement
+## Requirement
 
 * [context_filetype.vim](https://github.com/Shougo/context_filetype.vim)
 * [vim-textobj-user](https://github.com/kana/vim-textobj-user)
- * `<Plug>(textobj-precious-i)` を使用したい時のみ必要。
+    * `<Plug>(textobj-precious-i)` を使用したい時のみ必要。
 * [quickrun.vim](https://github.com/thinca/vim-quickrun)
- * `<Plug>(precious-quickrun-op)` を使用したい時のみ必要。
+    * `<Plug>(precious-quickrun-op)` を使用したい時のみ必要。
 
 
 
-##Screencapture
+## Screencapture
 ![capture](https://f.cloud.github.com/assets/214488/810517/1d435a7c-eeb9-11e2-8b98-b2275db39695.gif)
 
 
-##Supported
+## Supported
 * c
- * masm
- * gas
+    * masm
+    * gas
 * cpp
- * masm
- * gas
+    * masm
+    * gas
 * d
- * masm
+    * masm
 * eruby
- * ruby
+    * ruby
 * help
- * vim
+    * vim
 * html
- * javascript
- * coffee
- * css
+    * javascript
+    * coffee
+    * css
 * int-nyaos
- * lua
+    * lua
 * lua
- * vim
+    * vim
 * nyaos
- * lua
+    * lua
 * perl16
- * pir
+    * pir
 * python
- * vim
+    * vim
 * vim
- * python
- * ruby
- * lua
+    * python
+    * ruby
+    * lua
 * vimshell
- * vim
+    * vim
 * xhtml
- * javascript
- * coffee
- * css
+    * javascript
+    * coffee
+    * css
 * markdown
 
 
-##Example
+## Example
 
 ```vim
 " test.vim
@@ -125,17 +125,17 @@ augroup END
 ```
 
 
-##Implementations
+## Implementations
 
 * コンテキストに入った時に自動的に filetype を切り換える
 * コンテキストが切り替わった時に autocmd User で処理がフック出来る
 * コンテキストの範囲の textobj に対応
 * quickrun.vim との連携
- * コンテキストの範囲を quickrun する
- * filetype が切り替わってない状態でも type を設定
+    * コンテキストの範囲を quickrun する
+    * filetype が切り替わってない状態でも type を設定
 
 
-##TODO
+## TODO
 
 * matcher、switcher を使用した機能の拡張
 * matcher、switcher の優先順位付け
