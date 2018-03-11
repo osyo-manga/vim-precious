@@ -22,23 +22,17 @@ let g:precious_enable_switch_CursorHold
 
 
 function! s:is_enable_switch_CursorMoved(filetype)
-	return (get(g:precious_enable_switch_CursorMoved, "*", 1)
-\		 || get(g:precious_enable_switch_CursorMoved, a:filetype, 0))
-\		 && get(g:precious_enable_switch_CursorMoved, a:filetype, 1)
+  return precious#switch_def(g:precious_enable_switch_CursorMoved, a:filetype, 1)
 endfunction
 
 
 function! s:is_enable_switch_CursorMoved_i(filetype)
-	return (get(g:precious_enable_switch_CursorMoved_i, "*", 1)
-\		 || get(g:precious_enable_switch_CursorMoved_i, a:filetype, 0))
-\		 && get(g:precious_enable_switch_CursorMoved_i, a:filetype, 1)
+	return precious#switch_def(g:precious_enable_switch_CursorMoved_i, a:filetype, 1)
 endfunction
 
 
 function! s:is_enable_switch_CursorHold(filetype)
-	return (get(g:precious_enable_switch_CursorHold, "*", 1)
-\		 || get(g:precious_enable_switch_CursorHold, a:filetype, 0))
-\		 && get(g:precious_enable_switch_CursorHold, a:filetype, 1)
+	return precious#switch_def(g:precious_enable_switch_CursorHold, a:filetype, 1)
 endfunction
 
 
