@@ -58,40 +58,48 @@ endfunction
 
 function! s:is_enable_switch(switch, filetype)
   let def = precious#switch_def(g:precious_enable_switchers, a:filetype, {})
-  return get(def, a:switch, 1)
+  return precious#switch_def(def, a:switch, 1, 0)
 endfunction
 
 
-function! precious#switch_def(defs, filetype, ...)
+function! precious#switch_def(defs, name, ...)
+  let fallback = get(a:, 1, 0)
+  let use_cache = get(a:, 2, 1)
   let NOTDEF = {}
-  let cache = get(a:defs, "__cache__", NOTDEF)
-  if cache is NOTDEF
-    let cache = {}
-    let a:defs["__cache__"] = cache
+
+  if use_cache
+    let cache = get(a:defs, "__cache__", NOTDEF)
+    if cache is NOTDEF
+      let cache = {}
+      let a:defs["__cache__"] = cache
+    endif
+    let ft_def = get(cache, a:name, NOTDEF)
+  else
+    let cache = a:defs
+    let ft_def = NOTDEF
   endif
-  let ft_def = get(cache, a:filetype, NOTDEF)
 
   if ft_def is NOTDEF
-    let ft_def = get(a:defs, a:filetype, NOTDEF)
+    let ft_def = get(a:defs, a:name, NOTDEF)
 
     if ft_def is NOTDEF
       if exists("*glob2regpat")
         let matches = filter(copy(a:defs), "v:key != '*' && v:key =~ '[*?\\[]'"
-              \ . " && match(a:filetype, glob2regpat(v:key)) != -1")
+              \ . " && match(a:name, glob2regpat(v:key)) != -1")
         if !empty(matches)
-          let ft_def = copy(
-                \ sort(map(items(matches), "[strlen(v:val[0]), v:val[1]]"),
-                \ {a, b -> a[0] == b[0] ? 0 : a[0] > b[0] ? -1 : 1})[0][1])
+          let ft_def = sort(
+                \ map(items(matches), "[strlen(v:val[0]), v:val[1]]"),
+                \ {a, b -> a[0] == b[0] ? 0 : a[0] > b[0] ? -1 : 1})[0][1]
         endif
       endif
 
       if ft_def is NOTDEF
-        let fallback = a:0 ? a:1 : 0
-        let ft_def = copy(get(a:defs, "*", fallback))
+        let ft_def = get(a:defs, "*", fallback)
       endif
     endif
 
-    let cache[a:filetype] = ft_def
+    let ft_def = copy(ft_def)
+    let cache[a:name] = ft_def
   endif
 
   return ft_def
