@@ -61,10 +61,6 @@ function! s:is_enable_switch(switch, filetype)
   return precious#switch_def(def, a:switch, 1)
 endfunction
 
-function! precious#pp()
-  echo s:switch_def_cache
-endfunction
-
 
 function! precious#switch_def(defs, name, ...)
   let fallback = get(a:, 1, 0)
