@@ -61,6 +61,9 @@ function! s:is_enable_switch(switch, filetype)
 	return precious#switch_def(def, a:switch, 1)
 endfunction
 
+function! s:compare(a, b)
+	return a:a[0] == a:b[0] ? 0 : a:a[0] > a:b[0] ? -1 : 1
+endfunction
 
 function! precious#switch_def(defs, name, ...)
 	let fallback = get(a:, 1, 0)
@@ -72,13 +75,15 @@ function! precious#switch_def(defs, name, ...)
 			let matches = filter(copy(a:defs), "v:key != '*' && v:key =~ '[*?\\[]'"
 						\ . " && match(a:name, glob2regpat(v:key)) != -1")
 			if !empty(matches)
+				unlet ft_def
 				let ft_def = sort(
 							\ map(items(matches), "[strlen(v:val[0]), v:val[1]]"),
-							\ {a, b -> a[0] == b[0] ? 0 : a[0] > b[0] ? -1 : 1})[0][1]
+							\ "s:compare")[0][1]
 			endif
 		endif
 
 		if ft_def is NOTDEF
+			unlet ft_def
 			let ft_def = get(a:defs, "*", fallback)
 		endif
 	endif
