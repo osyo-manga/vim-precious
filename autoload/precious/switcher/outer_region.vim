@@ -36,10 +36,10 @@ function! s:start_region_update()
 endfunction
 
 function! s:stop_region_update()
-  unlet! b:precious_prev_context_range
   augroup precious-switcher-outer-region
     autocmd! * <buffer>
   augroup END
+  call s:clear_region()
 endfunction
 
 function! s:update_region()
@@ -74,6 +74,11 @@ function! s:update_region()
         \ 'keepend containedin=ALL'
 
   let b:precious_prev_context_range = copy(context.range)
+endfunction
+
+function! s:clear_region()
+  silent! execute 'syntax clear' s:syntax_region_name
+  unlet! b:precious_prev_context_range
 endfunction
 
 
