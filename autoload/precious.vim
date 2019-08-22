@@ -139,8 +139,8 @@ endfunction
 
 function! precious#reset_contextlocal()
 	if exists("b:precious_option_backup")
-		for setting in items(b:precious_option_backup)
-			execute "let &".setting[0]."=".setting[1]
+		for [option, old] in items(b:precious_option_backup)
+			execute "let &".option."=old"
 		endfor
 	endif
 	let b:precious_option_backup = {}
