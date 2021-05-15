@@ -8,8 +8,10 @@ let s:switcher = {}
 function! s:switcher.apply(context)
 	let base_filetype = a:context.base_filetype
 	let filetype = a:context.context_filetype
-	let &filetype = filetype
-	call precious#set_base_filetype(base_filetype)
+	if &filetype != filetype
+		let &filetype = filetype
+		call precious#set_base_filetype(base_filetype)
+	endif
 endfunction
 
 
