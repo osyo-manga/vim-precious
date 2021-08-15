@@ -21,9 +21,7 @@ unlet s:switcher
 
 
 function! s:reset_filetype()
-	if &filetype != precious#base_filetype()
-		let &filetype = precious#base_filetype()
-	endif
+	call precious#autocmd_switch(precious#base_filetype())
 endfunction
 
 function! s:recover_filetype()
@@ -32,7 +30,8 @@ endfunction
 
 augroup precious-switcher-setfiletype
 	autocmd!
-	autocmd BufWinLeave * call s:reset_filetype()
+	autocmd BufWinLeave *
+\		call win_execute(bufwinid(str2nr(expand('<abuf>'))), 'call s:reset_filetype()')
 	autocmd BufWinEnter * call s:recover_filetype()
 augroup END
 
