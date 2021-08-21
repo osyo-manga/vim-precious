@@ -58,7 +58,7 @@ augroup precious-augroup
 \|			PreciousSwitchAutcmd
 \|		endif
 
-	autocmd BufEnter,BufWinEnter * PreciousSwitchAutcmd
+	autocmd BufEnter * PreciousSwitchAutcmd
 augroup END
 
 
