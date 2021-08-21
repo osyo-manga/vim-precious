@@ -20,19 +20,13 @@ call precious#regist_switcher("setfiletype", s:switcher)
 unlet s:switcher
 
 
-function! s:reset_filetype()
-	call precious#autocmd_switch(precious#base_filetype())
-endfunction
-
-function! s:recover_filetype()
-	call precious#autocmd_switch(precious#context_filetype())
-endfunction
-
 augroup precious-switcher-setfiletype
 	autocmd!
 	autocmd BufWinLeave *
-\		call win_execute(bufwinid(str2nr(expand('<abuf>'))), 'call s:reset_filetype()')
-	autocmd BufWinEnter * call s:recover_filetype()
+\		call win_execute(bufwinid(str2nr(expand('<abuf>'))),
+\			'call precious#autocmd_switch(precious#base_filetype())')
+	autocmd BufWinEnter *
+\		call precious#autocmd_switch(precious#context_filetype())
 augroup END
 
 let &cpo = s:save_cpo
