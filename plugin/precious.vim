@@ -20,6 +20,9 @@ let g:precious_enable_switch_CursorMoved_i
 let g:precious_enable_switch_CursorHold
 \	= get(g:, "precious_enable_switch_CursorHold", {})
 
+let g:precious_enable_switch_BufEnter
+\	= get(g:, "precious_enable_switch_BufEnter", {})
+
 
 function! s:is_enable_switch_CursorMoved(filetype)
   return precious#switch_def(g:precious_enable_switch_CursorMoved, a:filetype, 1)
@@ -33,6 +36,11 @@ endfunction
 
 function! s:is_enable_switch_CursorHold(filetype)
 	return precious#switch_def(g:precious_enable_switch_CursorHold, a:filetype, 1)
+endfunction
+
+
+function! s:is_enable_switch_BufEnter(filetype)
+	return precious#switch_def(g:precious_enable_switch_BufEnter, a:filetype, 1)
 endfunction
 
 
@@ -58,7 +66,11 @@ augroup precious-augroup
 \|			PreciousSwitchAutcmd
 \|		endif
 
-	autocmd BufEnter * PreciousSwitchAutcmd
+	autocmd BufEnter *
+\		if s:is_enable_switch_BufEnter(precious#base_filetype())
+\		&& get(b:, "precious_switch_lock", 0) == 0
+\|			PreciousSwitchAutcmd
+\|		endif
 augroup END
 
 
