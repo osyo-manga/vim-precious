@@ -184,6 +184,14 @@ g:precious_enable_switch_CursorMoved_i
 	デフォルトでは全ての 'filetype' で有効になっています。
 	使い方は |g:precious_enable_switch_CursorMoved| と同じです。
 
+				*precious-precious_enable_switch_BufEnter*
+g:precious_enable_switch_BufEnter
+	'filetype' をキーに持つ辞書です。
+	1 が設定されていれば |BufEnter| 時に |:PreciousSwitch| を呼び出しま
+	す。
+	デフォルトでは全ての 'filetype' で有効になっています。
+	使い方は |g:precious_enable_switch_CursorMoved| と同じです。
+
 				*g:textobj_precious_no_default_key_mappings*
 g:textobj_precious_no_default_key_mappings
 	1 が設定されていれば textobj のキーマッピングを行いません。
